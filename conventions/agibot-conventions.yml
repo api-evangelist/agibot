@@ -1,0 +1,95 @@
+generated: '2026-08-06'
+method: derived
+source: grpc/aimdk/protocol/common/header.proto, grpc/aimdk/protocol/common/rpc.proto, mcp/agibot-mcp-tools.json,
+  llms/agibot-llms.txt, well-known/agibot-openid-configuration.json
+notes: Cross-cutting semantics for AgiBot’s two contract surfaces. The robot surface is a protobuf/gRPC
+  contract with its own request/response envelope and an explicit blocking-vs-non-blocking call convention;
+  the store surface follows MCP/JSON-RPC and UCP conventions. AgiBot documents no idempotency key, no
+  pagination scheme and no request-id tracing header on either surface, and none is asserted here.
+surfaces:
+- api: agibot:aimdk-protocol
+  transport: protobuf over AimRT RPC (gRPC, ROS 2, HTTP, MQTT, Zenoh, Iceoryx or shared memory)
+  auth_style: none in-contract — access is a property of the robot and its local network
+  request_envelope:
+    type: RequestHeader
+    fields:
+    - timestamp
+    blockable_variant:
+      type: BlockableRequestHeader
+      fields:
+      - timestamp
+      - blocked
+      semantics: blocked defaults to false; when false the call returns immediately with an RPC id the
+        caller polls for execution status.
+  response_envelope:
+    type: ResponseHeader
+    fields:
+    - code
+    - msg
+    - timestamp
+    success_rule: code == 0 is success; any non-zero code is a failure with msg carrying the description.
+    blockable_variant:
+      type: BlockableResponseHeader
+      extra_fields:
+      - id
+      semantics: id is the RPC handle for a non-blocking call; zero is invalid.
+  long_running_operations:
+    pattern: CommonTaskRequest/CommonTaskResponse carry a uint64 task_id and a CommonState (CREATED, PENDING,
+      RUNNING, SUCCESS, FAILURE, ABORTED, TIMEOUT, NOT_READY, IN_MANUAL, INVALID).
+    poll_operation: McService.GetTaskState / McDataService.GetTaskState
+  naming:
+    services: PascalCase ending in Service; grouped by domain package (hal, mc, hds, em).
+    rpcs: PascalCase verb-first (Get*/Set*/Enable*/Disable*/Clear*); a Get/Set pair per controllable subsystem.
+    fields: snake_case; messages PascalCase; enums prefixed with their own type name (CommonState_SUCCESS,
+      AlertLevel_FATAL).
+  telemetry:
+    pattern: Channel (pub/sub) topics parallel to the RPC services — *_channel.proto for joints, temperature,
+      lighting, BMS, images, state, alerts, health, heartbeat and trace events.
+    header: Header{seq, timestamp, frame_id} — a monotonically increasing sequence id and a frame reference
+      per sample.
+  idempotency:
+    supported: false
+    note: No idempotency key or de-duplication token is defined anywhere in the 136 published .proto files.
+      Get* RPCs are read-only by construction; Set* RPCs are not declared idempotent.
+  pagination:
+    supported: false
+    note: List RPCs (GetAlertList, GetAvailableActions, GetAllAppInfos, GetBlockedExceptionCodeList) return
+      whole collections; no cursor or page parameters are defined.
+  versioning: Carried by the AimRT runtime release (semver), not by the protocol path or a version field.
+- api: agibot:store-commerce
+  transport: MCP over HTTP (JSON-RPC 2.0)
+  auth_style: anonymous for catalog/cart/checkout tools; OAuth 2.0 bearer token in the Authorization header
+    for customer-scoped calls (PKCE S256)
+  request_envelope:
+    type: MCP tools/call arguments
+    required_metadata: meta.ucp-agent.profile — a URI identifying the calling agent, required on every
+      tool
+    recommended_context:
+    - context.address_country
+    - context.currency
+  identifiers: Shopify global IDs, e.g. gid://shopify/Checkout/abc123 and gid://shopify/Product/...
+  error_envelope: JSON-RPC 2.0 error object — see errors/agibot-problem-types.yml
+  rate_limits:
+    documented: true
+    signal: HTTP 429
+    policy: per-IP rate limit on the MCP endpoint; agents must back off on 429
+    source: https://store.agibot.com/llms.txt
+    limit_count: null
+    note: No numeric quota is published.
+  human_in_the_loop: complete_checkout requires contemporaneous buyer approval; agents that cannot obtain
+    it must route payment through Shop Pay instead.
+  idempotency:
+    supported: false
+    note: No idempotency key is documented for cart or checkout mutation tools; create_checkout returns
+      a checkout id that subsequent calls address.
+  versioning: Dated protocol versions (2026-04-08 current, 2026-01-23 also accepted) declared in /.well-known/ucp.
+  agent_discovery:
+  - https://store.agibot.com/llms.txt
+  - https://store.agibot.com/agents.md
+  - https://store.agibot.com/.well-known/ucp
+cross_links:
+  errors: errors/agibot-problem-types.yml
+  lifecycle: lifecycle/agibot-lifecycle.yml
+  authentication: authentication/agibot-authentication.yml
+  scopes: scopes/agibot-scopes.yml
+  contract: grpc/agibot-aimdk-protocol-index.yml

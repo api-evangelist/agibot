@@ -1,23 +1,238 @@
 aid: agibot
-name: Agibot
-description: 'Agibot is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+name: AgiBot
+description: 'AgiBot (AGIBOT Innovation (Shanghai) Technology Co., Ltd., known in Chinese
+  as Zhiyuan Robotics / 智元机器人) is a Shanghai-based embodied-intelligence company founded
+  in 2023 that designs and mass-produces humanoid and wheeled service robots — the
+  Expedition A2/A3 full-size humanoids, the X1/X2 open-source bipeds, the Genie G1/G2
+  and D1 series, the C5, and the OmniHand dexterous hands. Its developer surface is
+  not a public web API but a robotics contract stack: AimRT, an in-house C++20 runtime
+  and middleware compatible with ROS 2, gRPC, HTTP, MQTT, Zenoh and Iceoryx; Link-U
+  OS, an open-source embodied operating system; and the AimDK protocol, a first-party
+  Protocol Buffers definition of the robot itself — hardware abstraction (hands, arms,
+  audio, lights, neck, battery management, cameras, temperature, emergency stop), motion
+  control, kinematics, force control, teleoperation and a health-and-diagnostics service.
+  AgiBot also publishes the AgiBot World dataset, the Genie Sim simulation platform,
+  and runs an online store that implements the Universal Commerce Protocol with a live
+  hosted MCP endpoint for agent-driven purchasing.'
 url: https://raw.githubusercontent.com/api-evangelist/agibot/refs/heads/main/apis.yml
+image: https://www.agibot.com/favicon.ico
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment-pipeline
 specificationVersion: '0.20'
 created: '2026-08-06'
 modified: '2026-08-06'
 tags:
 - Company
-apis: []
+- Robotics
+- Humanoid Robots
+- Embodied AI
+- Artificial Intelligence
+- Manufacturing
+- Hardware
+- Middleware
+- ROS 2
+- gRPC
+- Protocol Buffers
+- Simulation
+- Machine Learning
+- Open Source
+- Model Context Protocol
+- Agentic Commerce
+- China
+apis:
+- aid: agibot:aimdk-protocol
+  name: AimDK Protocol (Link-U OS Robot Interface)
+  description: 'The AimDK protocol is AgiBot''s first-party Protocol Buffers definition
+    of its robots'' interfaces, published as the aimrt_protocol repository of Link-U
+    OS. It defines 33 gRPC services and 175 RPCs across four domains: hal/ (hardware
+    abstraction — hands and grippers including the OmniHand O10 and AgiClaw, arms,
+    audio, RGB/fill/strip lighting, neck, battery management, temperature, emergency
+    stop, operation mode, RealSense cameras, camera intrinsics and snapshots, MCU fault
+    clearing), mc/ (motion control — locomotion, walking and standing, joint and servo
+    control, forward and inverse kinematics, force primitives, collision and safety,
+    action sequences, planning, simulation and teleoperation from AimMaster, Quest
+    Pro controllers and universal gamepads), hds/ (health and diagnostics — alerts
+    with levels and solutions, module exceptions, process heartbeat and health, system
+    status, fallback), and common/ (SE(2)/SE(3) poses, velocities, accelerations and
+    trajectories, quaternions, RPY, twists, wrenches, joints, odometry, images, timestamps
+    and the shared RPC request/response headers). The same repository also ships 14
+    ROS 2 .msg and 19 .srv definitions, so the contract is consumable both as native
+    protobuf/gRPC and as ROS 2 interfaces. Endpoints are served by the robot itself
+    over the AimRT runtime on the local network; there is no public cloud host.'
+  humanURL: https://github.com/Link-U-OS/aimrt_protocol
+  x-endpoint-pattern: on-robot / LAN — AimRT serves the AimDK services from the robot
+    over its configured RPC backend (gRPC, HTTP, ROS 2, Zenoh, Iceoryx or shared memory);
+    no public internet base URL is published.
+  tags:
+  - Robotics
+  - gRPC
+  - Protocol Buffers
+  - ROS 2
+  - Motion Control
+  - Hardware Abstraction
+  - Diagnostics
+  properties:
+  - type: Protobuf
+    url: grpc/aimdk/protocol/mc/mc_service.proto
+  - type: SourceCode
+    url: https://github.com/Link-U-OS/aimrt_protocol
+  - type: Documentation
+    url: https://github.com/Link-U-OS/aimrt_protocol/blob/main/document/en/index.md
+  - type: GettingStarted
+    url: https://github.com/Link-U-OS/Link-U-OS/blob/main/document/cn/index.md
+- aid: agibot:aimdk-x2
+  name: AimDK_X2 SDK
+  description: 'AimDK_X2 is the published secondary-development SDK for the AgiBot
+    X2 humanoid. It exposes the robot to Python and C++ programs through five documented
+    interface modules — a control module (motion modes, locomotion, joint control,
+    end effectors and preset motions), an interaction module (voice, screen and LED
+    control), a hardware abstraction layer (LiDAR, RGB-D, IMU and touch sensors), a
+    perception module (SLAM and vision) and a system-management module (developer mode
+    and power management) — and ships more than 30 runnable example programs per language
+    covering motion, gripper operation, sensor reads, audio/video and SLAM. It is built
+    on ROS 2 and documented with an interface reference, an SDK data-structures reference
+    and an SDK state-transition reference.'
+  humanURL: https://x2-aimdk.agibot.com/en/latest/index.html
+  x-endpoint-pattern: on-robot / LAN — the SDK connects to the X2 over the network
+    connection described in the documentation prerequisites; no public internet base
+    URL is published.
+  tags:
+  - Robotics
+  - SDK
+  - Python
+  - C++
+  - ROS 2
+  - SLAM
+  - Motion Control
+  properties:
+  - type: Documentation
+    url: https://x2-aimdk.agibot.com/en/latest/index.html
+  - type: APIReference
+    url: https://x2-aimdk.agibot.com/en/latest/Interface/index.html
+  - type: GettingStarted
+    url: https://x2-aimdk.agibot.com/en/latest/quick_start/index.html
+  - type: Examples
+    url: https://x2-aimdk.agibot.com/en/latest/example/Python.html
+  - type: SDKs
+    url: packages/agibot-packages.yml
+- aid: agibot:store-commerce
+  name: AGIBOT Store Agent Commerce API (UCP / MCP)
+  description: 'The AGIBOT online store implements the Universal Commerce Protocol
+    (UCP) for agent-driven commerce and exposes a live, anonymous, hosted Model Context
+    Protocol endpoint. A JSON-RPC 2.0 tools/list call returns 13 real tools with full
+    JSON Schema inputs: search_catalog, lookup_catalog and get_product for discovery;
+    create_cart, get_cart, update_cart and cancel_cart for cart state; create_checkout,
+    get_checkout, update_checkout, complete_checkout and cancel_checkout for purchase;
+    and get_order for order status. A UCP merchant profile at /.well-known/ucp declares
+    the supported protocol versions, the shopping service endpoints, the checkout,
+    cart, fulfillment, discount, order and catalog capabilities, and the Google Pay
+    and Shopify card payment handlers. Customer-scoped calls authenticate through an
+    OAuth 2.0 / OpenID Connect authorization server with PKCE. The store publishes
+    both /llms.txt and /agents.md describing the agent contract, and requires contemporaneous
+    human approval before any payment is completed.'
+  humanURL: https://store.agibot.com/
+  baseURL: https://store.agibot.com/api/ucp/mcp
+  tags:
+  - Commerce
+  - Model Context Protocol
+  - Universal Commerce Protocol
+  - Agentic Commerce
+  - OAuth
+  - OpenID Connect
+  - Robotics
+  properties:
+  - type: MCPServer
+    url: mcp/agibot-mcp.yml
+  - type: LLMsTxt
+    url: llms/agibot-llms.txt
+  - type: WellKnown
+    url: well-known/agibot-well-known.yml
+  - type: Authentication
+    url: authentication/agibot-authentication.yml
+  - type: OAuthScopes
+    url: scopes/agibot-scopes.yml
+  - type: Documentation
+    url: https://store.agibot.com/llms.txt
+  - type: TermsOfService
+    url: https://store.agibot.com/policies/terms-of-service
+  - type: PrivacyPolicy
+    url: https://store.agibot.com/policies/privacy-policy
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/agibot-domain-security.yml
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://www.agibot.com/
+- type: DeveloperPortal
+  url: https://www.agibot.com/DOCS/OS
+- type: Documentation
+  url: https://www.agibot.com/filepage/282.html
+- type: APIReference
+  url: https://x2-aimdk.agibot.com/en/latest/Interface/index.html
+- type: GettingStarted
+  url: https://x2-aimdk.agibot.com/en/latest/quick_start/index.html
+- type: GitHubOrganization
+  url: https://github.com/AgibotTech
+- type: Blog
+  url: https://www.agibot.com/news
+- type: Support
+  url: https://www.agibot.com/Contact/Business
+- type: Pricing
+  url: https://store.agibot.com/collections/all
+- type: Login
+  url: https://store-account.agibot.com/authentication/oauth/authorize
+- type: TermsOfService
+  url: https://store.agibot.com/policies/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.agibot.com/AGIBOT%20Website%20Privacy%20Policy.pdf
+- type: Protobuf
+  url: grpc/agibot-aimdk-protocol-index.yml
+- type: Packages
+  url: packages/agibot-packages.yml
+- type: SDKs
+  url: packages/agibot-packages.yml
+- type: MCPServer
+  url: mcp/agibot-mcp.yml
+- type: LLMsTxt
+  url: llms/agibot-llms.txt
+- type: WellKnown
+  url: well-known/agibot-well-known.yml
+- type: Authentication
+  url: authentication/agibot-authentication.yml
+- type: OAuthScopes
+  url: scopes/agibot-scopes.yml
+- type: Conformance
+  url: conformance/agibot-conformance.yml
+- type: ErrorCatalog
+  url: errors/agibot-problem-types.yml
+- type: Conventions
+  url: conventions/agibot-conventions.yml
+- type: Lifecycle
+  url: lifecycle/agibot-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/agibot-lifecycle.yml
+- type: ChangeLog
+  url: changelog/agibot-changelog.yml
+- type: VulnerabilityDisclosure
+  url: security/agibot-vulnerability-disclosure.yml
+- type: Security
+  url: security/agibot-vulnerability-disclosure.yml
+- type: RateLimits
+  url: rate-limits/agibot-rate-limits.yml
+- type: Sandbox
+  url: sandbox/agibot-sandbox.yml
+- type: CLI
+  url: cli/agibot-cli.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-08-06'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v1

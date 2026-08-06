@@ -1,0 +1,64 @@
+generated: '2026-08-06'
+method: derived
+source: grpc/agibot-aimdk-protocol-index.yml, well-known/agibot-openid-configuration.json, well-known/agibot-ucp.json,
+  llms/agibot-llms.txt
+notes: Standards conformance derived from artifacts actually captured in this repo. No certification or
+  audit claim is made — AgiBot publishes no trust centre and no SOC 2 / ISO 27001 / PCI attestation that
+  this pass could find.
+standards:
+- id: protobuf3
+  conforms: true
+  evidence: All 136 published AimDK .proto files declare syntax = "proto3"; package aimdk.protocol.
+- id: grpc
+  conforms: true
+  evidence: 33 proto3 service definitions with 175 unary rpc method declarations (grpc/aimdk/protocol/**).
+- id: ros2-interfaces
+  conforms: true
+  evidence: aimrt_protocol also publishes 14 ROS 2 .msg and 19 .srv definitions with build configuration;
+    AimRT ships a ros2 plugin (Humble and Jazzy).
+- id: urdf
+  conforms: true
+  evidence: AgiBot publishes URDF robot models — github.com/AgibotTech/agibot_x2_urdf and Agibot_D1_Max/urdf.
+- id: oauth2
+  conforms: true
+  evidence: RFC 8414 authorization-server metadata and RFC 9728 protected-resource metadata are served
+    at store.agibot.com and store-account.agibot.com.
+- id: oidc
+  conforms: true
+  evidence: /.well-known/openid-configuration declares issuer, jwks_uri, RS256 id_token signing and the
+    openid scope.
+- id: oauth2-pkce
+  conforms: true
+  evidence: 'code_challenge_methods_supported: ["S256"].'
+- id: mcp
+  conforms: true
+  evidence: POST https://store.agibot.com/api/ucp/mcp tools/list returned JSON-RPC 2.0 200 with 13 tools
+    carrying JSON Schema 2020-12 inputSchemas.
+- id: json-schema-2020-12
+  conforms: true
+  evidence: 'Every MCP tool inputSchema declares $schema: https://json-schema.org/draft/2020-12/schema.'
+- id: ucp
+  conforms: true
+  evidence: /.well-known/ucp declares UCP versions 2026-04-08 and 2026-01-23 with shopping service, checkout/cart/fulfillment/discount/order/catalog
+    capabilities and payment handlers.
+- id: llmstxt
+  conforms: true
+  evidence: store.agibot.com/llms.txt returns 200 text/markdown; /agents.md is the canonical twin.
+- id: openapi
+  conforms: false
+  evidence: No OpenAPI or Swagger document is published on any AgiBot host (probed www, docs, .cn, store
+    and dataset hosts).
+- id: asyncapi
+  conforms: false
+  evidence: No AsyncAPI document; the event surface is protobuf channels and ROS 2 topics, not an AsyncAPI-describable
+    broker contract.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors are protobuf ResponseHeader{code,msg} and MCP JSON-RPC error objects, not application/problem+json.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: No /.well-known/security.txt on any host; the vulnerability disclosure policy is published
+    as a PDF instead.
+- id: a2a
+  conforms: false
+  evidence: No agent card at /.well-known/agent-card.json or /.well-known/agent.json on any host.

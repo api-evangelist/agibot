@@ -42,5 +42,11 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Agibot is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+AgiBot (AGIBOT Innovation (Shanghai) Technology Co., Ltd. / Zhiyuan Robotics, 智元机器人) is a Shanghai-based embodied-intelligence company founded in 2023 that designs and mass-produces humanoid and wheeled service robots. Its developer surface is a robotics contract stack rather than a public web API: the AimRT runtime, the Link-U OS embodied operating system, and the AimDK Protocol Buffers contract — 33 gRPC services and 175 RPCs across hardware abstraction, motion control and health diagnostics. Its online store separately implements the Universal Commerce Protocol with a live hosted MCP endpoint.
+
+- Website: https://www.agibot.com/
+- Open source: https://www.agibot.com/DOCS/OS
+- GitHub: https://github.com/AgibotTech · https://github.com/AimRT · https://github.com/Link-U-OS
+- AimDK protocol: https://github.com/Link-U-OS/aimrt_protocol
+- AimDK_X2 SDK docs: https://x2-aimdk.agibot.com/en/latest/index.html
+- Store agent instructions: https://store.agibot.com/llms.txt

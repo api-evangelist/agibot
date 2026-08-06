@@ -1,0 +1,40 @@
+generated: '2026-08-06'
+method: generated
+source: Packaged Agent Skills generated from the artifacts in this repo. Store tool names are verified
+  verbatim in mcp/agibot-mcp-tools.json (live tools/list, 2026-08-06); robot RPC names are verified verbatim
+  in the .proto files under grpc/aimdk/protocol/. No operation name is invented.
+skills:
+- file: agibot-store-agent-purchase.md
+  name: Buy from the AGIBOT store as an agent
+  api: mcp/agibot-mcp.yml
+  operations:
+  - search_catalog
+  - lookup_catalog
+  - get_product
+  - create_cart
+  - update_cart
+  - get_cart
+  - create_checkout
+  - update_checkout
+  - complete_checkout
+  - get_order
+- file: agibot-robot-motion-control.md
+  name: Bring an AgiBot robot up and move it under the AimDK protocol
+  api: grpc/agibot-aimdk-protocol-index.yml
+  operations:
+  - SetWorkMode
+  - GetWorkMode
+  - EnableRobot
+  - GetWorkState
+  - SetLocomotionGait
+  - Stand
+  - JointMove
+  - LinearMove
+  - PlanningMove
+  - GetTaskState
+  - SafeStop
+  - GoHomePose
+  - DisableRobot
+  - GetAlertList
+  - ClearAlert
+  - CollisionRecover

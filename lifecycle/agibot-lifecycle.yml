@@ -1,0 +1,55 @@
+generated: '2026-08-06'
+method: searched
+source: https://www.agibot.com/filepage/282.html, https://github.com/AimRT/AimRT/releases, https://store.agibot.com/.well-known/ucp
+notes: AgiBot publishes a "Defined Support Period" policy PDF from its Document Center covering product
+  support lifetimes, and its store declares a versioned commerce protocol with an explicit supported-version
+  list. It publishes no status page and no HTTP Deprecation/Sunset header policy — there is no public
+  web API to carry them.
+x-evidence:
+- url: https://www.agibot.com/Defined%20Support%20Period.pdf
+  http_status: 200
+  content_type: application/pdf
+  fetched: '2026-08-06'
+- url: https://store.agibot.com/.well-known/ucp
+  http_status: 200
+  fetched: '2026-08-06'
+versioning:
+- surface: AimRT runtime
+  scheme: semver
+  current: 1.7.0
+  prerelease_channel: -rcN tags
+  url: https://github.com/AimRT/AimRT/releases
+- surface: AimDK_X2 SDK
+  scheme: documentation versions
+  current: 1.0.0
+  also_published:
+  - 0.9.0
+  url: https://x2-aimdk.agibot.com/en/latest/index.html
+- surface: Store UCP/MCP
+  scheme: dated protocol versions
+  current: '2026-04-08'
+  supported:
+  - '2026-04-08'
+  - '2026-01-23'
+  url: https://store.agibot.com/.well-known/ucp
+support_policy:
+  published: true
+  title: Defined Support Period
+  url: https://www.agibot.com/Defined%20Support%20Period.pdf
+  format: pdf
+  note: Product support-period definition published from the AgiBot Document Center; the deprecation posture
+    for AgiBot hardware and its bundled software.
+deprecation:
+  policy_published: true
+  mechanism: Defined Support Period document (product-level), plus the UCP supported_versions list which
+    names the protocol versions the store still accepts.
+  headers:
+    sunset: false
+    deprecation: false
+    note: RFC 8594 headers are not applicable — no public HTTP API.
+status_page:
+  published: false
+  note: No status.agibot.com or equivalent found; not probed to a 200 anywhere.
+sla:
+  published: false
+deprecated_operations: []

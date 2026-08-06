@@ -1,0 +1,334 @@
+generated: '2026-08-06'
+method: searched
+source: https://github.com/Link-U-OS/aimrt_protocol
+commit: 03263afbbe05b224e2525c70c7ec74afb119cecc
+fetched: '2026-08-06'
+license: Mulan Permissive Software License v2 (Mulan PSL v2)
+notes: First-party AgiBot Protocol Buffers contract for the AimDK / Link-U OS robot interface. Files carry
+  the header "Copyright (c) 2025, AgiBot Inc." and are saved verbatim under grpc/aimdk/protocol/ with
+  the upstream directory layout preserved so the proto import paths resolve. The same upstream repository
+  also publishes 14 ROS 2 .msg and 19 .srv interface definitions, which are not copied here.
+x-evidence:
+  url: https://github.com/Link-U-OS/aimrt_protocol
+  http_status: 200
+  fetched: '2026-08-06'
+  tarball: https://codeload.github.com/Link-U-OS/aimrt_protocol/tar.gz/refs/heads/main
+syntax: proto3
+package: aimdk.protocol
+runtime:
+  framework: AimRT
+  url: https://aimrt.org/
+  repository: https://github.com/AimRT/AimRT
+  transports:
+  - grpc
+  - ros2
+  - http
+  - tcp
+  - udp
+  - mqtt
+  - zenoh
+  - iceoryx
+  - shared-memory
+  note: AimRT is AgiBot’s in-house C++20 robotics runtime; AimDK protobuf messages are carried over its
+    RPC and channel backends.
+counts:
+  proto_files: 136
+  services: 33
+  rpcs: 175
+  messages: 427
+  enums: 61
+  ros2_msg: 14
+  ros2_srv: 19
+domains:
+- domain: demo
+  description: Reference/demo service and channel.
+  services:
+  - service: DemoService
+    file: grpc/aimdk/protocol/demo/demo_service.proto
+    rpcs:
+    - GetLatestBall
+- domain: hal
+  description: Hardware abstraction layer — hands, arms, audio, lighting, neck, battery, temperature,
+    sensors, emergency stop, operation mode, MCU faults.
+  services:
+  - service: HalPowerService
+    file: grpc/aimdk/protocol/hal/power/hal_power_service.proto
+    rpcs:
+    - ResetPower
+    - ShutDownDevice
+    - GetDevicePowerState
+  - service: HalHandService
+    file: grpc/aimdk/protocol/hal/hand/hal_hand_service.proto
+    rpcs:
+    - GetHandState
+    - SetHandCommand
+  - service: CamerasIntrinsicService
+    file: grpc/aimdk/protocol/hal/sensors/cameras_intrinsic.proto
+    rpcs:
+    - GetCamerasIntrinsic
+  - service: CameraSnapshotsService
+    file: grpc/aimdk/protocol/hal/sensors/cameras_snapshot.proto
+    rpcs:
+    - GetCameraSnapshots
+  - service: CameraService
+    file: grpc/aimdk/protocol/hal/sensors/rs2_camera.proto
+    rpcs:
+    - GetCameraInfo
+    - GetCameraData
+  - service: HalTempService
+    file: grpc/aimdk/protocol/hal/temp/hal_temp_service.proto
+    rpcs:
+    - GetTempState
+  - service: HalBmsService
+    file: grpc/aimdk/protocol/hal/bms/hal_bms_service.proto
+    rpcs:
+    - GetBmsState
+    - SetBmsMosfeCommand
+    - GetPowerState
+  - service: HalEmergencyService
+    file: grpc/aimdk/protocol/hal/state/hal_emergency_service.proto
+    rpcs:
+    - GetEmergencyState
+    - SetEmergencyCommand
+  - service: HalOperationModeService
+    file: grpc/aimdk/protocol/hal/state/hal_operation_mode_service.proto
+    rpcs:
+    - GetOperationModeState
+    - SetOperationModeCommand
+  - service: HalAudioService
+    file: grpc/aimdk/protocol/hal/audio/hal_audio_service.proto
+    rpcs:
+    - PlayFile
+    - StopPlay
+    - SetAudioVolume
+    - GetAudioVolume
+  - service: HalNeckService
+    file: grpc/aimdk/protocol/hal/neck/hal_neck_service.proto
+    rpcs:
+    - GetNeckState
+    - SetNeckCommand
+  - service: HalRgbLightService
+    file: grpc/aimdk/protocol/hal/light/hal_light_service.proto
+    rpcs:
+    - GetRgbLightState
+    - SetRgbLightCommand
+  - service: HalFillLightService
+    file: grpc/aimdk/protocol/hal/light/hal_light_service.proto
+    rpcs:
+    - GetFillLightState
+    - SetFillLightCommand
+  - service: HalLightStripService
+    file: grpc/aimdk/protocol/hal/light/hal_light_service.proto
+    rpcs:
+    - GetLightStripState
+    - SetLightStripCommand
+  - service: A2wArmControlService
+    file: grpc/aimdk/protocol/hal/jaka/jaka.proto
+    rpcs:
+    - GetJointPosition
+    - JointMove
+    - LinearMove
+    - GetRobotState
+    - GetRobotStatus
+    - IsInPos
+    - IsOnLimit
+    - GetTcpPosition
+    - KineForward
+    - KineInverse
+    - ClearError
+    - GetLastError
+    - IsInCollision
+    - CollisionRecover
+    - GetCollisionLevel
+    - SetCollisionLevel
+    - EnableServoControl
+    - EnableTorqueControl
+    - SetInstallationAngle
+    - GetInstallationAngle
+    - EnableAdmittanceCtrl
+    - SetFtCtrlFrame
+    - DisableForceControl
+    - SetCompliantType
+    - SetTorqueSensorMode
+    - SetAdmitCtrlConfig
+    - EnableDragMode
+    - IsInDragMode
+    - SetGravityDirection
+    - GetGravityDirection
+    - SetLpfFilter
+    - SetNoneFilter
+    - MockJakaErrorCode
+    - GetJakaStatusLowBattery
+  - service: HalFaultService
+    file: grpc/aimdk/protocol/hal/fault/hal_fault_service.proto
+    rpcs:
+    - ClearMcuFault
+- domain: hds
+  description: Health and diagnostics — alerts, exceptions, process health and heartbeat, system status,
+    monitoring.
+  services:
+  - service: HDSService
+    file: grpc/aimdk/protocol/hds/hds_service.proto
+    rpcs:
+    - GetAlertList
+    - ClearAlert
+    - GetTotalAlertList
+    - GetAlertCount
+    - GetExceptionEvent
+    - SetShieldAlertLevel
+    - SetDebugMode
+    - SetBlockExceptionCode
+    - GetBlockedExceptionCodeList
+  - service: MonitorService
+    file: grpc/aimdk/protocol/hds/monitor/monitor_service.proto
+    rpcs:
+    - SetShieldHeartbeatAlert
+    - GetProcessInfo
+    - GetProcessAliveInfo
+- domain: em
+  description: Embodied application lifecycle service (start/stop/query robot applications).
+  services:
+  - service: EmAppService
+    file: grpc/aimdk/protocol/em/api.proto
+    rpcs:
+    - StartApp
+    - StartApps
+    - StopApp
+    - StopApps
+    - GetAppInfo
+    - GetAllAppInfos
+- domain: mc
+  description: Motion control — locomotion, joints, servos, kinematics, force control, safety, actions,
+    planning, simulation and teleoperation.
+  services:
+  - service: McService
+    file: grpc/aimdk/protocol/mc/mc_service.proto
+    rpcs:
+    - GetTaskState
+    - GetJointState
+    - GetJointParam
+    - GetJointCommand
+    - GetJointAngle
+    - GetTcpPosition
+    - GetMotionGPTStatus
+    - GetPlanningGroupAvailable
+    - KineForward
+    - KineInverse
+    - JointMove
+    - LinearMove
+    - Se3PoseMove
+    - PlanningMove
+    - GetAimMasterControlSource
+    - SetAimMasterControlSource
+    - SetAimMasterControlCommand
+    - CollisionRecover
+    - GetSimulationObj
+  - service: McToolService
+    file: grpc/aimdk/protocol/mc/tools/mc_tools_service.proto
+    rpcs:
+    - AddToolsConfig
+    - GetToolConfig
+    - SetRobotTool
+    - GetRobotTool
+    - SetPayload
+  - service: McTestService
+    file: grpc/aimdk/protocol/mc/test/mc_test_service.proto
+    rpcs:
+    - GetPlanningMoveTarget
+  - service: McServoService
+    file: grpc/aimdk/protocol/mc/servo/mc_servo_service.proto
+    rpcs: []
+  - service: McSimulationService
+    file: grpc/aimdk/protocol/mc/simulation/mc_simulation_service.proto
+    rpcs:
+    - GetSimulationObj
+  - service: McMotionService
+    file: grpc/aimdk/protocol/mc/motion/mc_motion_service.proto
+    rpcs:
+    - JointMove
+    - LinearMove
+    - TrajectoryMove
+    - JointControl
+    - SetLocomotionGait
+    - GetLocomotionGait
+    - Stand
+    - SafeStop
+    - GoHomePose
+    - PlanningMove
+    - InteractiveMove
+    - GetTempPlanningResult
+    - SetHandCommand
+    - SetNeckCommand
+    - SendAdjustCommand
+    - GetAdjustEndPositions
+    - DisabaleArmContact
+    - SetCollisionDetectionState
+    - GetCollisionDetectionState
+    - ComputeKinematics
+    - ActiveMotionControl
+    - SetFutureCollisionDetectionState
+    - SetTrajectoryCollisionDetectionState
+    - GetFutureCollisionDetectionState
+    - SelectDanceType
+    - GetDanceTypeList
+    - SitStandStateNotify
+  - service: McSafetyService
+    file: grpc/aimdk/protocol/mc/safety/mc_safety_service.proto
+    rpcs:
+    - CollisionRecover
+  - service: McActionService
+    file: grpc/aimdk/protocol/mc/action/mc_action_service.proto
+    rpcs:
+    - SetAction
+    - GetAction
+    - GetAvailableActions
+    - GetAvailableCommands
+  - service: McKinematicsService
+    file: grpc/aimdk/protocol/mc/kinematics/mc_kinematics_service.proto
+    rpcs:
+    - KineForward
+    - KineInverse
+  - service: McForceService
+    file: grpc/aimdk/protocol/mc/force/mc_force_service.proto
+    rpcs:
+    - SetForceControlPrimitive
+    - SetSlideSpiral
+    - SetSlideZigzag
+    - SetSleeve
+    - SetContact
+  - service: McDataService
+    file: grpc/aimdk/protocol/mc/data/mc_data_service.proto
+    rpcs:
+    - GetTaskState
+    - GetJointState
+    - GetJointParam
+    - GetJointCommand
+    - GetJointAngle
+    - GetHandState
+    - GetNeckState
+    - GetTcpPosition
+    - GetMotionGPTStatus
+    - SetMotionGPTState
+    - GetPlanningGroupAvailable
+  - service: McBaseService
+    file: grpc/aimdk/protocol/mc/base/mc_base_service.proto
+    rpcs:
+    - SetWorkMode
+    - GetWorkMode
+    - EnableRobot
+    - DisableRobot
+    - GetWorkState
+    - GetState
+    - EnableJaka
+    - DisableJaka
+    - GetJakaState
+  - service: McRemoteService
+    file: grpc/aimdk/protocol/mc/remote/mc_remote_service.proto
+    rpcs:
+    - GetAimMasterControlSource
+    - SetAimMasterControlSource
+    - SetAimMasterControlCommand
+    - EnterRemoteControlMode
+    - ExitRemoteControlMode
+    - SetRemoteControlMode
+    - GetRemoteControlMode

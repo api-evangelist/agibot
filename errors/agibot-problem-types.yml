@@ -1,0 +1,157 @@
+generated: '2026-08-06'
+method: derived
+source: grpc/aimdk/protocol/common/header.proto, grpc/aimdk/protocol/common/rpc.proto, grpc/aimdk/protocol/hds/*,
+  grpc/aimdk/protocol/hal/fault/mcu_fault.proto
+format: protobuf-status-envelope
+notes: 'AgiBot does not publish an HTTP problem-details catalogue — it has no public web API. Error semantics
+  are defined in the AimDK protobuf contract: every RPC returns a ResponseHeader with a numeric code (0
+  = success, non-zero = failure) and a human-readable msg, and long-running calls additionally carry a
+  CommonState. Runtime faults are reported out-of-band through the health-and-diagnostics (hds) surface
+  as module exceptions and alerts. The specific non-zero code values are module-defined and are not enumerated
+  in the published protos, so no code list is asserted here.'
+envelopes:
+- name: ResponseHeader
+  file: grpc/aimdk/protocol/common/header.proto
+  fields:
+  - field: code
+    type: uint64
+    meaning: 0 = success; non-zero = failure. Values are module-defined and not enumerated in the published
+      contract.
+  - field: msg
+    type: string
+    meaning: Human-readable description of the processing result.
+  - field: timestamp
+    type: Timestamp
+    meaning: When the response was produced.
+- name: BlockableResponseHeader
+  file: grpc/aimdk/protocol/common/header.proto
+  fields:
+  - field: code
+    type: uint64
+    meaning: Same convention as ResponseHeader.
+  - field: msg
+    type: string
+    meaning: Result description.
+  - field: id
+    type: uint64
+    meaning: RPC id for a non-blocking call; the caller polls the executor with it for execution status.
+      Zero is invalid.
+- name: ModuleException
+  file: grpc/aimdk/protocol/hds/exception.proto
+  fields:
+  - field: module_id
+    type: uint32
+    meaning: Reporting module.
+  - field: code
+    type: uint32
+    meaning: Module exception code.
+  - field: info
+    type: string
+    meaning: Exception detail.
+  - field: type
+    type: ExceptionType
+    meaning: Normal (periodic), Trigger_Appear, or Trigger_Disappear.
+- name: Alert
+  file: grpc/aimdk/protocol/hds/alert.proto
+  fields:
+  - field: id
+    type: string
+    meaning: Alert identifier.
+  - field: state
+    type: AlertState
+    meaning: Alert lifecycle state.
+  - field: level
+    type: AlertLevel
+    meaning: Severity.
+  - field: solution
+    type: AlertSolution
+    meaning: Remediation type and content supplied with the alert.
+states:
+- enum: CommonState
+  file: grpc/aimdk/protocol/common/rpc.proto
+  values:
+  - name: CommonState_UNKNOWN
+    value: 0
+  - name: CommonState_SUCCESS
+    value: 1
+  - name: CommonState_FAILURE
+    value: 2
+  - name: CommonState_ABORTED
+    value: 3
+  - name: CommonState_TIMEOUT
+    value: 4
+  - name: CommonState_INVALID
+    value: 5
+  - name: CommonState_IN_MANUAL
+    value: 6
+  - name: CommonState_NOT_READY
+    value: 100
+  - name: CommonState_PENDING
+    value: 200
+  - name: CommonState_CREATED
+    value: 300
+  - name: CommonState_RUNNING
+    value: 400
+- enum: AlertLevel
+  file: grpc/aimdk/protocol/hds/alert.proto
+  values:
+  - name: AlertLevel_UNDEFINED
+    value: 0
+    meaning: No alert
+  - name: AlertLevel_FATAL
+    value: 1
+  - name: AlertLevel_SERIOUS
+    value: 2
+  - name: AlertLevel_WARNING
+    value: 3
+  - name: AlertLevel_HIDDEN_DANGERS
+    value: 4
+  - name: AlertLevel_STATUS
+    value: 5
+- enum: AlertState
+  file: grpc/aimdk/protocol/hds/alert.proto
+  values:
+  - name: AlertState_UNDEFINED
+    value: 0
+  - name: AlertState_ACTIVE
+    value: 1
+  - name: AlertState_CLEARED
+    value: 2
+  - name: AlertState_ExceptionChanged
+    value: 3
+  - name: AlertState_Recovering
+    value: 4
+- enum: ExceptionType
+  file: grpc/aimdk/protocol/hds/exception.proto
+  values:
+  - name: ExceptionType_Normal
+    value: 0
+    meaning: Reported periodically while present.
+  - name: ExceptionType_Trigger_Appear
+    value: 1
+    meaning: Reported once when the exception appears.
+  - name: ExceptionType_Trigger_Disappear
+    value: 2
+    meaning: Reported once when the exception clears.
+remediation_operations:
+- operation: HalFaultService.ClearMcuFault
+  file: grpc/aimdk/protocol/hal/fault/hal_fault_service.proto
+  note: Clears an MCU fault by module_id + event_id.
+- operation: HDSService.ClearAlert
+  file: grpc/aimdk/protocol/hds/hds_service.proto
+- operation: HDSService.SetShieldAlertLevel
+  file: grpc/aimdk/protocol/hds/hds_service.proto
+  note: Suppress alerts at or below a level.
+- operation: HDSService.SetBlockExceptionCode
+  file: grpc/aimdk/protocol/hds/hds_service.proto
+  note: Block a specific exception code.
+- operation: McSafetyService.CollisionRecover
+  file: grpc/aimdk/protocol/mc/safety/mc_safety_service.proto
+  note: Recover from a collision-stop condition.
+commerce_errors:
+  surface: agibot:store-commerce
+  format: JSON-RPC 2.0 error object over MCP
+  documented_signals:
+  - signal: '429'
+    meaning: MCP endpoint rate limit per IP; agents must back off.
+    source: https://store.agibot.com/llms.txt

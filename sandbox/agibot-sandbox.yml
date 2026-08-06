@@ -1,0 +1,45 @@
+generated: '2026-08-06'
+method: searched
+source: https://github.com/AgibotTech/genie_sim, https://github.com/AimRT/aimrt_mujoco_sim, https://github.com/AgibotTech/agibot_x1_train
+notes: AgiBot ships no API sandbox in the payments sense — there are no test keys, test cards or hosted
+  test tokens, because there is no public transactional web API. What it does publish is a full simulation
+  stack that lets a developer exercise the same AimDK contract without owning a robot, which is the equivalent
+  test surface for this class of provider. No fabricated test values appear in this file.
+environments:
+- name: Genie Sim
+  type: simulation platform
+  version: 3.2.0
+  url: https://github.com/AgibotTech/genie_sim
+  license_check: see repository
+  description: AgiBot’s simulation platform for embodied manipulation. Vendors a subset of the AimDK protocol
+    under source/data_collection/common/aimdk/protocol/ and adds sim-specific gRPC services — SimCameraService,
+    SimJointService, SimGripperService, SimObjectService and SimObservationService — so the same protobuf
+    clients drive simulated and physical robots.
+- name: aimrt_mujoco_sim
+  type: physics simulation backend
+  url: https://github.com/AimRT/aimrt_mujoco_sim
+  description: MuJoCo integration for the AimRT runtime; lets AimRT modules run against a simulated robot.
+- name: AgiBot X1 training and inference
+  type: RL sim-to-real toolchain
+  url: https://github.com/AgibotTech/agibot_x1_train
+  description: Reinforcement-learning training code for the X1, paired with agibot_x1_infer for deployment;
+    Link-U OS documents a single policy codebase running across MuJoCo simulation and real robots (sim2sim
+    / sim2real).
+- name: McSimulationService
+  type: in-protocol simulation hook
+  url: grpc/aimdk/protocol/mc/simulation/mc_simulation_service.proto
+  description: A simulation service declared in the AimDK contract itself (GetSimulationObj), also surfaced
+    through McService.
+- name: Link-U OS simulation learner track
+  type: documented usage tier
+  url: https://github.com/Link-U-OS/Link-U-OS
+  description: Link-U OS explicitly supports "simulation learners" — developers without an A2 robot —
+    as a first-class user tier alongside hardware developers and ecosystem partners.
+test_credentials:
+  published: false
+  note: No test keys, test-mode prefixes, test cards or hosted test tokens are published, and none are
+    invented here.
+store_sandbox:
+  published: false
+  note: The store MCP endpoint is live commerce only; no test-mode endpoint is documented. Checkout requires
+    contemporaneous human approval.

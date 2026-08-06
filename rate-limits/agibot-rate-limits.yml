@@ -1,0 +1,23 @@
+generated: '2026-08-06'
+method: searched
+source: https://store.agibot.com/llms.txt
+notes: The only rate-limit signal AgiBot publishes is on the store MCP endpoint, and it is qualitative
+  — a per-IP limit and an instruction to back off on 429, with no numeric quota, window or RateLimit-*
+  response headers documented. The AimDK robot protocol has no rate limiting; it is an on-robot RPC surface.
+x-evidence:
+  fetched: '2026-08-06'
+  url: https://store.agibot.com/llms.txt
+  http_status: 200
+rate_limits:
+- api: agibot:store-commerce
+  scope: per IP address
+  endpoint: https://store.agibot.com/api/ucp/mcp
+  limit_count: null
+  window: null
+  signal: HTTP 429
+  headers_documented: false
+  policy: The MCP endpoint is rate-limited per IP. Back off on 429 responses.
+  source: https://store.agibot.com/llms.txt
+gaps:
+- No numeric quota published.
+- No RateLimit-Limit / RateLimit-Remaining / Retry-After header contract documented.

@@ -1,0 +1,50 @@
+generated: '2026-08-06'
+method: searched
+source: https://github.com/AimRT/AimRT/releases
+notes: AgiBot publishes no product-wide dated changelog on agibot.com. The dated, versioned release stream
+  for its developer surface is the AimRT runtime on GitHub, which ships tagged semantic versions with
+  release notes and prebuilt Python wheels, on a release-candidate-then-stable cadence of roughly one
+  minor version per month. Genie Sim is separately tagged. The AimDK protocol repository itself is untagged.
+x-evidence:
+  fetched: '2026-08-06'
+  url: https://api.github.com/repos/AimRT/AimRT/releases
+  http_status: 200
+scheme: semver with -rcN prereleases
+component: AimRT runtime
+current_version: 1.7.0
+entries:
+- version: v1.7.0
+  date: '2026-04-03'
+  breaking: false
+  highlights:
+  - MQTT plugin gains a callback_executor_name option.
+  - RPC timeout handling stabilised and time-wheel scheduling bugs corrected.
+  - Context RPC server state judgment bug fixed.
+  - 1.7.0 performance test report published.
+- version: v1.6.0
+  date: '2026-02-28'
+  breaking: false
+  highlights:
+  - ROS 2 Jazzy support added with version-based compatibility.
+  - Scheduling policy, priority and affinity configuration for ROS 2 executor threads.
+  - Unique index field added to the channel/RPC wrapper.
+- version: v1.5.0
+  date: '2026-01-16'
+  breaking: false
+  highlights:
+  - ROS 2 plugin optimised; EventsExecutor added.
+  - Record/playback plugin gains new interfaces and documentation.
+  - Log time-flag options added.
+- version: v1.4.0
+  date: '2025-12-15'
+  breaking: false
+  highlights: []
+related:
+- component: Genie Sim
+  version: v3.2.0
+  date: '2026-08-04'
+  url: https://github.com/AgibotTech/genie_sim/releases
+- component: AimDK protocol (aimrt_protocol)
+  version: untagged
+  last_commit: '2025-12-29'
+  url: https://github.com/Link-U-OS/aimrt_protocol

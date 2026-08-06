@@ -1,0 +1,91 @@
+generated: '2026-08-06'
+method: searched
+source: https://github.com/AimRT/AimRT/releases, https://github.com/AgibotTech, https://x2-aimdk.agibot.com/en/latest/get_sdk/index.html
+notes: AgiBot publishes no packages to npm, PyPI, Maven Central, NuGet, RubyGems, Packagist or crates.io
+  — probed and all 404. Its first-party client libraries ship as prebuilt Python wheels attached to AimRT
+  GitHub releases, as C++ libraries and ROS 2 packages in its GitHub repositories, and as an SDK bundle
+  downloaded from the X2 documentation site.
+registries_probed:
+- registry: pypi
+  query: aimrt
+  status: 404
+- registry: pypi
+  query: aimrt-py
+  status: 404
+- registry: pypi
+  query: agibot
+  status: 404
+- registry: pypi
+  query: genie-sim
+  status: 404
+- registry: pypi
+  query: link-u-os
+  status: 404
+- registry: npm
+  query: aimrt
+  status: 404
+packages:
+- language: python
+  registry: github-releases
+  name: aimrt_py
+  version: 1.7.0
+  url: https://github.com/AimRT/AimRT/releases/tag/v1.7.0
+  install: pip install aimrt_py-1.7.0-cp310-cp310-linux_x86_64.whl
+  artifacts:
+  - aimrt_py-1.7.0-cp310-cp310-linux_x86_64.whl
+  - aimrt_py-1.7.0-cp310-cp310-linux_aarch64.whl
+  - aimrt_py-1.7.0-cp311-cp311-win_amd64.whl
+  official: true
+  notes: Prebuilt wheels for the AimRT runtime Python bindings (with .pyi type hints). Linux wheels are
+    built with gcc 11.4 on Ubuntu 22.04 and support Python 3.10 only; Windows wheel targets cp311.
+- language: cpp
+  registry: source
+  name: AimRT
+  version: 1.7.0
+  url: https://github.com/AimRT/AimRT
+  install: CMake build from source (see https://docs.aimrt.org/tutorials/)
+  official: true
+  notes: AgiBot’s C++20 robotics runtime and middleware; carries the AimDK protobuf contract over gRPC/ROS
+    2/HTTP/MQTT/Zenoh/Iceoryx backends.
+- language: python
+  registry: source
+  name: AimDK_X2 SDK (Python)
+  version: 1.0.0
+  url: https://x2-aimdk.agibot.com/en/latest/get_sdk/index.html
+  install: Download the SDK bundle from the AimDK_X2 documentation site
+  official: true
+  notes: Python interface to the AgiBot X2 with 30+ example programs; includes API reference, data-structures
+    reference and state-transition reference.
+- language: cpp
+  registry: source
+  name: AimDK_X2 SDK (C++)
+  version: 1.0.0
+  url: https://x2-aimdk.agibot.com/en/latest/get_sdk/index.html
+  install: Download the SDK bundle; prebuilt .so libraries per architecture (x86_64, aarch64) plus example/
+    sources
+  official: true
+  notes: C++ interface to the AgiBot X2, built on ROS 2.
+- language: cpp
+  registry: github
+  name: agillink_omnihand_sdk
+  url: https://github.com/AgibotTech/agillink_omnihand_sdk
+  install: git clone https://github.com/AgibotTech/agillink_omnihand_sdk
+  official: true
+  notes: Binary SDK and ROS 2 packages (Humble and Jazzy, x64 and aarch64) for the OmniHand dexterous
+    hand family, including tactile-sensor message definitions.
+- language: protobuf
+  registry: github
+  name: aimrt_protocol
+  url: https://github.com/Link-U-OS/aimrt_protocol
+  install: Bazel or CMake dependency on the aimrt_protocol repository
+  official: true
+  notes: The AimDK protobuf and ROS 2 interface definitions themselves, with build-chain configuration
+    for consuming projects. Mulan PSL v2.
+- language: python
+  registry: github
+  name: genie_sim
+  version: 3.2.0
+  url: https://github.com/AgibotTech/genie_sim
+  install: git clone https://github.com/AgibotTech/genie_sim
+  official: true
+  notes: AgiBot’s simulation platform; vendors a subset of the AimDK protocol for data collection.

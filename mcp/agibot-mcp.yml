@@ -1,0 +1,178 @@
+generated: '2026-08-06'
+method: searched
+status: live
+source: https://store.agibot.com/llms.txt
+notes: AgiBot publishes a live, anonymous, hosted MCP endpoint on its online store as part of its Universal
+  Commerce Protocol (UCP) implementation. A JSON-RPC 2.0 tools/list POST returned 200 with 13 tools and
+  full JSON Schema inputSchemas, saved verbatim to mcp/agibot-mcp-tools.json. The store is built on Shopify,
+  so the UCP/MCP surface is platform-provided but served from AgiBot’s own host under AgiBot’s merchant
+  identity (merchant_name AGIBOT, merchant_origin store.agibot.com). No MCP server exists for the AimDK
+  robot protocol.
+x-evidence:
+  fetched: '2026-08-06'
+  url: https://store.agibot.com/api/ucp/mcp
+  method: POST
+  body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  tools_returned: 13
+server:
+  name: agibot-store
+  transport: http
+  protocol: mcp (JSON-RPC 2.0)
+  url: https://store.agibot.com/api/ucp/mcp
+  canonical_url: https://agibot.myshopify.com/api/ucp/mcp
+  discovery: https://store.agibot.com/.well-known/ucp
+  authentication: anonymous for catalog/cart/checkout tools; customer-scoped calls use OAuth 2.0 / OIDC
+    — see authentication/agibot-authentication.yml
+  agent_instructions:
+  - https://store.agibot.com/llms.txt
+  - https://store.agibot.com/agents.md
+protocol:
+  name: Universal Commerce Protocol
+  spec: https://ucp.dev
+  versions_supported:
+  - '2026-04-08'
+  - '2026-01-23'
+  current: '2026-04-08'
+guardrails:
+- Checkout requires contemporaneous human approval — agents must not complete payment without explicit
+  buyer consent.
+- The MCP endpoint is rate limited per IP; agents must back off on 429.
+- Agents should pass context.address_country and context.currency for accurate pricing and availability.
+tool_count: 13
+tools:
+- name: get_checkout
+  category: checkout
+  description: Returns details about the checkout, including line items, totals, and any applicable discounts
+    or taxes.
+  input_properties:
+  - meta
+  - id
+  required:
+  - meta
+  - id
+- name: create_checkout
+  category: checkout
+  description: Creates a checkout. Returns checkout details, including line items, totals, and any applicable
+    discounts or taxes.
+  input_properties:
+  - meta
+  - checkout
+  required:
+  - meta
+  - checkout
+- name: update_checkout
+  category: checkout
+  description: Updates a checkout. Returns checkout details, including line items, totals, and any applicable
+    discounts or taxes.
+  input_properties:
+  - meta
+  - checkout
+  - id
+  required:
+  - meta
+  - checkout
+  - id
+- name: complete_checkout
+  category: checkout
+  description: Completes a checkout and returns the checkout result. Returns details about the completed
+    checkout, including order ID, Thank You Page URL, or any errors encountered.
+  input_properties:
+  - meta
+  - checkout
+  - id
+  required:
+  - meta
+  - id
+  - checkout
+- name: cancel_checkout
+  category: checkout
+  description: Cancels a checkout.
+  input_properties:
+  - meta
+  - id
+  required:
+  - meta
+  - id
+- name: get_cart
+  category: cart
+  description: Get the cart contents
+  input_properties:
+  - meta
+  - id
+  required:
+  - meta
+  - id
+- name: create_cart
+  category: cart
+  description: Creates a new cart
+  input_properties:
+  - meta
+  - cart
+  required:
+  - meta
+  - cart
+- name: update_cart
+  category: cart
+  description: Perform updates to a cart.
+  input_properties:
+  - meta
+  - cart
+  - id
+  required:
+  - meta
+  - cart
+  - id
+- name: cancel_cart
+  category: cart
+  description: Cancels a cart.
+  input_properties:
+  - meta
+  - id
+  required:
+  - meta
+  - id
+- name: get_order
+  category: order
+  description: Get the details of an order
+  input_properties:
+  - meta
+  - id
+  required:
+  - meta
+  - id
+- name: search_catalog
+  category: catalog
+  description: Search for products from the online store, hosted on Shopify. This tool can be used to
+    search for products using natural language queries, specific filter criteria, or both. At least one
+    of query or filters must be provi
+  input_properties:
+  - meta
+  - catalog
+  required:
+  - meta
+  - catalog
+- name: lookup_catalog
+  category: catalog
+  description: 'Look up multiple products or variants by identifier. Use this tool to resolve multiple
+    product/variant IDs in a single request. Supports: - Product IDs (gid://shopify/Product/...): Returns
+    product with match: "featured" '
+  input_properties:
+  - meta
+  - catalog
+  required:
+  - meta
+  - catalog
+- name: get_product
+  category: catalog
+  description: Retrieve complete product detail by identifier. Returns a singular product with a relevant
+    set of variants, exact pricing, and real-time availability. Supports interactive option selection
+    via selected and preferences pa
+  input_properties:
+  - meta
+  - catalog
+  required:
+  - meta
+  - catalog
+raw: mcp/agibot-mcp-tools.json

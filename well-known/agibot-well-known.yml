@@ -1,0 +1,143 @@
+generated: '2026-08-06'
+method: probed
+fetched: '2026-08-06'
+notes: Probed /.well-known/ on every AgiBot host found in apis.yml plus the docs and store hosts. www.agibot.com,
+  x2-aimdk.agibot.com and www.agibot.com.cn return a genuine 404 for every /.well-known/ path (no security.txt,
+  no OIDC, no api-catalog, no agent card). agibot-world.com is a single-page app whose catch-all answers
+  200 with HTML for every path, so its 200s were rejected as false positives. The real discovery surface
+  is on the commerce host store.agibot.com and its account host store-account.agibot.com.
+hosts:
+- host: https://store.agibot.com
+  documents:
+  - path: /.well-known/ucp
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: agibot-ucp.json
+    description: Universal Commerce Protocol merchant profile — versions, shopping service endpoints (MCP
+      + embedded), capabilities and payment handlers.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: agibot-oauth-protected-resource.json
+    description: RFC 9728 protected-resource metadata; declares the authorization servers and bearer method.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: agibot-oauth-authorization-server.json
+    description: RFC 8414 authorization-server metadata.
+  - path: /.well-known/apple-app-site-association
+    status: 200
+    content_type: application/json
+    file: null
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /llms.txt
+    status: 200
+    content_type: text/markdown; charset=utf-8
+    file: ../llms/agibot-llms.txt
+    description: Agent instructions for the store — UCP endpoints, agent flow, read-only browsing endpoints,
+      policies.
+  - path: /agents.md
+    status: 200
+    content_type: text/markdown; charset=utf-8
+    file: ../llms/agibot-agents.md
+    description: Canonical agent-facing description of the store; llms.txt mirrors it.
+  - path: /robots.txt
+    status: 200
+    content_type: text/plain; charset=utf-8
+    file: null
+- host: https://store-account.agibot.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: agibot-openid-configuration.json
+    description: OpenID Connect discovery for the AGIBOT customer account authorization server.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: null
+  - path: /.well-known/jwks.json
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: null
+  - path: /authentication/.well-known/jwks.json
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: null
+- host: https://www.agibot.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /llms.txt
+    status: 404
+    file: null
+  - path: /sitemap.xml
+    status: 200
+    content_type: text/xml
+    file: null
+- host: https://x2-aimdk.agibot.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /llms.txt
+    status: 404
+    file: null
+- host: https://www.agibot.com.cn
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /llms.txt
+    status: 404
+    file: null
+  - path: /sitemap.xml
+    status: 200
+    content_type: text/xml
+    file: null
+security_txt:
+  present: false
+  note: No RFC 9116 security.txt on any host. AgiBot does publish a Vulnerability Disclosure Policy as
+    a PDF with a security@agibot.com contact — see security/agibot-vulnerability-disclosure.yml.

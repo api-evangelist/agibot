@@ -1,0 +1,35 @@
+generated: '2026-08-06'
+method: searched
+source: https://store-account.agibot.com/.well-known/openid-configuration
+notes: Scopes are declared by the AGIBOT customer-account authorization server discovery document. They
+  apply to the store commerce surface only; the AimDK robot protocol defines no scopes.
+x-evidence:
+  fetched: '2026-08-06'
+  url: https://store-account.agibot.com/.well-known/openid-configuration
+  http_status: 200
+flows:
+- authorization_code
+- refresh_token
+- urn:ietf:params:oauth:grant-type:jwt-bearer
+pkce_required_methods:
+- S256
+scopes:
+- name: openid
+  description: Request an OpenID Connect ID token for the signed-in AGIBOT store customer.
+- name: email
+  description: Read the customer’s email address and its verification state.
+- name: customer-account-api:full
+  description: Full access to the customer account API for the signed-in customer.
+- name: customer-account-mcp-api:full
+  description: Full access to the customer-account MCP API — the customer-scoped half of the agent commerce
+    surface.
+claims:
+- iss
+- sub
+- aud
+- exp
+- iat
+- nonce
+- sid
+- email
+- email_verified

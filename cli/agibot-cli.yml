@@ -1,0 +1,54 @@
+generated: '2026-08-06'
+method: searched
+source: https://github.com/AimRT/AimRT/blob/main/document/sphinx-en/tutorials/cli_tool/cli_tool.md
+notes: aimrt_cli is the official AimRT command-line tool. It is a Python utility distributed with the
+  AimRT source rather than through PyPI (pypi.org/project/aimrt-cli and aimrt_cli both 404). AgiBot also
+  distributes REF-CLI, a Windows utility for actuator parameter configuration, from its open-source download
+  page.
+tools:
+- name: aimrt_cli
+  official: true
+  language: python
+  docs: https://docs.aimrt.org/tutorials/cli_tool/cli_tool.html
+  source: https://github.com/AimRT/AimRT/tree/main/src/tools/aimrt_cli
+  install:
+  - method: build wheel from source
+    commands:
+    - cd <aimrt_src>/src/tools/aimrt_cli
+    - python -m build --wheel
+    - pip install dist/aimrt_cli-*.whl
+  - method: compile with AimRT
+    commands:
+    - ./build.sh
+    - mv build/install/bin/aimrt_cli <target>
+    - export PATH=<target>:$PATH
+  uninstall: pip uninstall aimrt_cli
+  commands:
+  - command: aimrt_cli gen
+    flags:
+    - -p <configuration>.yaml
+    - -o <output_folder>
+    description: Generate scaffolding code for a new AimRT project from a YAML configuration (base_info
+      with project_name, build_mode_tags and aimrt_import_options; standard module dependencies; deployment
+      configuration). The output folder must be empty or non-existent.
+  - command: aimrt_cli --help
+    flags:
+    - -h
+    - --help
+    description: Built-in help listing supported options.
+  reference_config: src/tools/aimrt_cli/configuration_example.yaml
+- name: REF-CLI
+  official: true
+  version: 1.0.3
+  platform: windows
+  url: https://www.agibot.com/DOCS/OS
+  description: Downloadable utility for actuator parameter configuration, published alongside the X1 open-source
+    materials.
+related_tools:
+- name: AimStudio
+  description: Graphical deployment tool for Link-U OS.
+  url: https://github.com/Link-U-OS/AimStudio
+- name: xyber_dcu_test
+  version: 0.1.3
+  description: Desktop joint-testing software published on the AgiBot open-source download page.
+  url: https://www.agibot.com/DOCS/OS
