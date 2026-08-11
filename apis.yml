@@ -165,6 +165,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: IssueTracker
+  url: https://github.com/Link-U-OS/aimrt_protocol/issues
 - type: DomainSecurity
   url: security/agibot-domain-security.yml
 - type: Website
