@@ -176,3 +176,11 @@ tools:
   - meta
   - catalog
 raw: mcp/agibot-mcp-tools.json
+deployment:
+  mode: remote
+  endpoint: https://store.agibot.com/api/ucp/mcp
+  verified: probed
+  probe: live
+  tools: 13
+  checked: '2026-08-12'
+  source: catalog MCP census
