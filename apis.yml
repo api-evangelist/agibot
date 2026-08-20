@@ -36,6 +36,24 @@ tags:
 - gRPC
 - Protocol Buffers
 - Simulation
+- Machine-Learning
+- Open-Source
+- MCP
+- Agentic Commerce
+- China
+tags_raw:
+- Company
+- Robotics
+- Humanoid Robots
+- Embodied AI
+- Artificial Intelligence
+- Manufacturing
+- Hardware
+- Middleware
+- ROS 2
+- gRPC
+- Protocol Buffers
+- Simulation
 - Machine Learning
 - Open Source
 - Model Context Protocol
@@ -135,6 +153,14 @@ apis:
   humanURL: https://store.agibot.com/
   baseURL: https://store.agibot.com/api/ucp/mcp
   tags:
+  - Commerce
+  - MCP
+  - Universal Commerce Protocol
+  - Agentic Commerce
+  - Authentication
+  - OpenID Connect
+  - Robotics
+  tags_raw:
   - Commerce
   - Model Context Protocol
   - Universal Commerce Protocol
