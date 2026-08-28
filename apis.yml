@@ -15,6 +15,18 @@ description: 'AgiBot (AGIBOT Innovation (Shanghai) Technology Co., Ltd., known i
   and runs an online store that implements the Universal Commerce Protocol with a live
   hosted MCP endpoint for agent-driven purchasing.'
 url: https://raw.githubusercontent.com/api-evangelist/agibot/refs/heads/main/apis.yml
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 image: https://www.agibot.com/favicon.ico
 x-type: company
 x-source: harvest:secondary-market
