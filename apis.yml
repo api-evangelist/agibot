@@ -16,16 +16,19 @@ description: 'AgiBot (AGIBOT Innovation (Shanghai) Technology Co., Ltd., known i
   hosted MCP endpoint for agent-driven purchasing.'
 url: https://raw.githubusercontent.com/api-evangelist/agibot/refs/heads/main/apis.yml
 deliveryModel:
-  model: unknown
+  model: saas
+  license_evidence:
+    not_product:
+    - link-u-os/aimrt_protocol
   open_source: unknown
   commercial: true
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: unknown
@@ -64,8 +67,8 @@ tags:
 - gRPC
 - Protocol Buffers
 - Simulation
-- Machine-Learning
-- Open-Source
+- Machine Learning
+- Open Source
 - MCP
 - Agentic Commerce
 - China
@@ -87,6 +90,8 @@ tags_raw:
 - Model Context Protocol
 - Agentic Commerce
 - China
+- Machine-Learning
+- Open-Source
 apis:
 - aid: agibot:aimdk-protocol
   name: AimDK Protocol (Link-U OS Robot Interface)
@@ -213,6 +218,9 @@ apis:
     url: https://store.agibot.com/policies/terms-of-service
   - type: PrivacyPolicy
     url: https://store.agibot.com/policies/privacy-policy
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
