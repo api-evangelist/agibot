@@ -1,0 +1,57 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://store.agibot.com/collections/all
+sources:
+- https://store.agibot.com/collections/all
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: usage-other
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+published: true
+note: Hardware product catalog listing robots; some items show unit sale prices in USD, others only 'Learn
+  More'. Not an API pricing page; platform products (AIMA Open Platform etc.) are linked but unpriced
+  here.
+plan_count: 7
+currency: USD
+plans:
+- name: AGIBOT A2 Lite
+  price_text: Sale price $44,560.00 USD
+  price: 44560
+  currency: USD
+  period: one-time
+  unit: robot
+- name: AGIBOT A2 Ultra
+  price_text: Learn More >
+  period: none
+  unit: robot
+- name: AGIBOT A3
+  price_text: Learn More >
+  period: none
+  unit: robot
+- name: AGIBOT A3 Ultra
+  price_text: Learn More >
+  period: none
+  unit: robot
+- name: AGIBOT C5
+  price_text: Learn More >
+  period: none
+  unit: robot
+- name: AGIBOT D1 Edu
+  price_text: Sale price $6,080.00 USD
+  price: 6080
+  currency: USD
+  period: one-time
+  unit: robot
+- name: AGIBOT D1 Pro
+  price_text: Sale price $3,200.00 USD
+  price: 3200
+  currency: USD
+  period: one-time
+  unit: robot
