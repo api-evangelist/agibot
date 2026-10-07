@@ -227,6 +227,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Plans
+  url: plans/agibot-plans-pricing.yml
 - type: IssueTracker
   url: https://github.com/Link-U-OS/aimrt_protocol/issues
 - type: DomainSecurity
