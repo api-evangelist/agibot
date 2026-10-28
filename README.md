@@ -1,4 +1,4 @@
-# Agibot
+# AgiBot
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,11 +64,122 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-AgiBot (AGIBOT Innovation (Shanghai) Technology Co., Ltd. / Zhiyuan Robotics, 智元机器人) is a Shanghai-based embodied-intelligence company founded in 2023 that designs and mass-produces humanoid and wheeled service robots. Its developer surface is a robotics contract stack rather than a public web API: the AimRT runtime, the Link-U OS embodied operating system, and the AimDK Protocol Buffers contract — 33 gRPC services and 175 RPCs across hardware abstraction, motion control and health diagnostics. Its online store separately implements the Universal Commerce Protocol with a live hosted MCP endpoint.
+AgiBot (AGIBOT Innovation (Shanghai) Technology Co., Ltd., known in Chinese as Zhiyuan Robotics / 智元机器人) is a Shanghai-based embodied-intelligence company founded in 2023 that designs and mass-produces humanoid and wheeled service robots — the Expedition A2/A3 full-size humanoids, the X1/X2 open-source bipeds, the Genie G1/G2 and D1 series, the C5, and the OmniHand dexterous hands. Its developer surface is not a public web API but a robotics contract stack: AimRT, an in-house C++20 runtime and middleware compatible with ROS 2, gRPC, HTTP, MQTT, Zenoh and Iceoryx; Link-U OS, an open-source embodied operating system; and the AimDK protocol, a first-party Protocol Buffers definition of the robot itself — hardware abstraction (hands, arms, audio, lights, neck, battery management, cameras, temperature, emergency stop), motion control, kinematics, force control, teleoperation and a health-and-diagnostics service. AgiBot also publishes the AgiBot World dataset, the Genie Sim simulation platform, and runs an online store that implements the Universal Commerce Protocol with a live hosted MCP endpoint for agent-driven purchasing.
 
-- Website: https://www.agibot.com/
-- Open source: https://www.agibot.com/DOCS/OS
-- GitHub: https://github.com/AgibotTech · https://github.com/AimRT · https://github.com/Link-U-OS
-- AimDK protocol: https://github.com/Link-U-OS/aimrt_protocol
-- AimDK_X2 SDK docs: https://x2-aimdk.agibot.com/en/latest/index.html
-- Store agent instructions: https://store.agibot.com/llms.txt
+**Areas:** Company · Robotics · Humanoid Robots · Embodied AI · Artificial Intelligence · Manufacturing · Hardware · Middleware · ROS 2 · gRPC · Protocol Buffers · Simulation
+
+## AgiBot on APIs.io
+
+Everything profiled for AgiBot is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/agibot/](https://apis.io/providers/agibot/)** — or go straight to one of the APIs or properties below.
+
+### APIs (3)
+
+- [AimDK Protocol (Link-U OS Robot Interface)](https://apis.io/apis/agibot/aimdk-protocol/) — The AimDK protocol is AgiBot's first-party Protocol Buffers definition of its robots' interfaces, published as the aimrt_protocol repository of Link-U OS.…
+- [AimDK_X2 SDK](https://apis.io/apis/agibot/aimdk-x2/) — AimDK_X2 is the published secondary-development SDK for the AgiBot X2 humanoid. It exposes the robot to Python and C++ programs through five documented…
+- [AGIBOT Store Agent Commerce API (UCP / MCP)](https://apis.io/apis/agibot/store-commerce/) — The AGIBOT online store implements the Universal Commerce Protocol (UCP) for agent-driven commerce and exposes a live, anonymous, hosted Model Context…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [agibot-store](https://apis.io/servers/agibot/agibot-store/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Agibot Authentication](https://apis.io/security/agibot/agibot-authentication/)
+- [Agibot Domain Security](https://apis.io/security/agibot/agibot-domain-security/)
+- [Agibot Vulnerability Disclosure](https://apis.io/security/agibot/agibot-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Agibot Scopes](https://apis.io/scopes/agibot/agibot-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Agibot Plans Pricing](https://apis.io/plans/agibot/agibot-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Agibot Rate Limits](https://apis.io/rate-limits/agibot/agibot-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.agibot.com/)
+- [Documentation](https://www.agibot.com/filepage/282.html)
+- [Getting started](https://x2-aimdk.agibot.com/en/latest/quick_start/index.html)
+- [API reference](https://x2-aimdk.agibot.com/en/latest/Interface/index.html)
+- [Pricing](https://store.agibot.com/collections/all)
+- [Support](https://www.agibot.com/Contact/Business)
+- [Blog](https://www.agibot.com/news)
+- [Terms of service](https://store.agibot.com/policies/terms-of-service)
+- [Privacy policy](https://www.agibot.com/AGIBOT%20Website%20Privacy%20Policy.pdf)
+- [GitHub](https://github.com/AgibotTech)
+
+## API Evangelist rating
+
+**Kin Score 53.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 30.5 |
+| Contract governance | 4.5 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 80.4 |
+| Access clarity | 69.7 |
+
+**Agent readiness 35.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | platform (partial credit) |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 37.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/agibot/](https://apis.io/providers/agibot/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for AgiBot: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/agibot/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
